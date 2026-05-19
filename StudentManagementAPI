@@ -1,1 +1,67 @@
 
+# StudentManagementAPI
+
+A CRUD REST API for managing students and their enrolled courses, built using the same layered architecture as the InventoryManagementAPI.
+
+## What It Does
+
+Manages students and courses in a SQL Server database. Each student can have multiple courses (one-to-many relationship). Exposes a full CRUD API with Swagger documentation and includes a unit test.
+
+## Tech Stack
+
+- ASP.NET Core Web API (.NET 8)
+- Entity Framework Core 8.0 (Code-First)
+- SQL Server (LocalDB)
+- Swagger / OpenAPI
+- xUnit (unit testing)
+- Moq (mocking)
+
+## Architecture
+
+```
+StudentManagementAPI/
+├── Controllers/        # StudentController — REST endpoints
+├── Data/               # ApplicationDbContext
+├── Models/             # Student, Course
+├── Repositories/       # IStudentRepository, StudentRepository
+├── appsettings.json    # Connection string → StudentDB
+└── Program.cs          # DI registration
+
+StudentManagementAPI.Tests/
+└── StudentControllerTests.cs   # Unit test: GetStudent returns 404 when not found
+```
+
+## API Endpoints
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/api/student` | Get all students (with courses) |
+| GET | `/api/student/{id}` | Get student by ID |
+| POST | `/api/student` | Add a new student |
+| PUT | `/api/student/{id}` | Update student details |
+| DELETE | `/api/student/{id}` | Delete a student |
+
+## How to Run
+
+**Prerequisites:** Visual Studio 2022, .NET 8 SDK, SQL Server LocalDB
+
+1. Open the solution in Visual Studio 2022
+2. Install NuGet packages via Package Manager Console:
+   ```
+   Install-Package Microsoft.EntityFrameworkCore.SqlServer -Version 8.0.0
+   Install-Package Microsoft.EntityFrameworkCore.Tools -Version 8.0.0
+   Install-Package Swashbuckle.AspNetCore
+   ```
+3. Run migrations:
+   ```
+   Add-Migration InitialCreate
+   Update-Database
+   ```
+4. Press **F5** — Swagger UI available at `https://localhost:{port}/swagger`
+
+## What I Learned
+
+- Applying the Repository Pattern to a different domain (students/courses)
+- Eager loading related entities using `.Include()`
+- How EF Core handles one-to-many relationships with navigation properties
+- Writing async CRUD operations with proper null handling
