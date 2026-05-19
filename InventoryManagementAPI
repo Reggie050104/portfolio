@@ -1,1 +1,83 @@
 
+# InventoryManagementAPI
+
+A full-featured inventory management REST API built with ASP.NET Core and Entity Framework Core, following professional software architecture patterns.
+
+## What It Does
+
+Manages products and categories stored in a SQL Server database. Implements the Repository Pattern for clean separation of concerns, exposes a complete CRUD API documented with Swagger, and includes both unit and integration tests.
+
+## Tech Stack
+
+- ASP.NET Core Web API (.NET 8)
+- Entity Framework Core 8.0 (Code-First)
+- SQL Server (LocalDB)
+- Swagger / OpenAPI
+- xUnit 2.9.3 (unit testing)
+- Moq (mocking)
+- FluentAssertions (integration testing)
+
+## Architecture
+
+```
+InventoryManagementAPI/
+├── Controllers/        # ProductController — REST endpoints
+├── Data/               # ApplicationDbContext — EF Core configuration
+├── Models/             # Product, Category — domain entities
+├── Repositories/       # IProductRepository, ProductRepository — data access layer
+├── appsettings.json    # Database connection string
+└── Program.cs          # Service registration and middleware pipeline
+
+InventoryManagementAPI.Tests/
+└── ProductControllerTests.cs   # Unit tests with Moq
+
+InventoryManagementAPI.IntegrationTests/
+└── ProductIntegrationTests.cs  # Integration tests with in-memory DB
+```
+
+## API Endpoints
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/api/product` | Get all products (with category) |
+| GET | `/api/product/{id}` | Get product by ID |
+| POST | `/api/product` | Create a new product |
+| PUT | `/api/product/{id}` | Update a product |
+| DELETE | `/api/product/{id}` | Delete a product |
+
+## How to Run
+
+**Prerequisites:** Visual Studio 2022, .NET 8 SDK, SQL Server LocalDB
+
+1. Open the solution in Visual Studio 2022
+2. Open Package Manager Console and install dependencies:
+   ```
+   Install-Package Microsoft.EntityFrameworkCore.SqlServer -Version 8.0.0
+   Install-Package Microsoft.EntityFrameworkCore.Tools -Version 8.0.0
+   Install-Package Swashbuckle.AspNetCore
+   ```
+3. Run database migrations:
+   ```
+   Add-Migration InitialCreate
+   Update-Database
+   ```
+4. Press **F5** to run — Swagger UI opens automatically at `https://localhost:{port}/swagger`
+
+## Example POST Body
+
+```json
+{
+  "name": "Laptop",
+  "stockQuantity": 25,
+  "categoryId": 1
+}
+```
+
+## What I Learned
+
+- Repository Pattern and why it improves testability and separation of concerns
+- Entity Framework Core Code-First migrations
+- Configuring one-to-many relationships using `OnModelCreating`
+- Dependency Injection in ASP.NET Core
+- Writing unit tests with Moq to mock repository dependencies
+- Writing integration tests using `WebApplicationFactory` and an in-memory database
