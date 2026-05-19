@@ -1,1 +1,57 @@
 
+# FilmLog — Ionic Mobile App (v1)
+
+A mobile movie discovery and personal tracking application built with Ionic and Angular, modelled after apps like Letterboxd and IMDb. Built for INF 354 Assignment 2 at the University of Pretoria.
+
+## What It Does
+
+- **Authentication** — simulated login/signup using local storage
+- **Movie Search** — searches real movies via the live IMDb API
+- **Watchlist** — add movies you plan to watch, stored locally with Ionic Storage
+- **Watched List** — mark movies as watched, track how many times you've seen them, and reset the counter
+- **Movie Details** — view title, release year, cast, and poster for any selected movie
+
+## Tech Stack
+
+- Ionic (Angular)
+- Angular (`HttpClient` for API calls)
+- TypeScript
+- Ionic Storage (local database)
+- IMDb API (`https://imdb.iamidiotareyoutoo.com`)
+- SCSS
+
+## Pages / Navigation
+
+| Page | Description |
+|------|-------------|
+| Login / Register | Simulated auth with local storage |
+| Search | Search movies live from IMDb API, displayed in Ionic List |
+| Movie Details | Title, year, cast, poster — Add to Watchlist or Mark as Watched |
+| Watchlist | All movies the user wants to watch; removable |
+| Watched | All watched movies; removable, with times-watched counter and reset button |
+
+Navigation implemented via Ionic tab bar (Search / Watchlist / Watched).
+
+## How to Run
+
+**Prerequisites:** Node.js, Ionic CLI (`npm install -g @ionic/cli`)
+
+```bash
+cd filmlog-ionic
+npm install
+ionic serve
+```
+
+The app opens in your browser simulating a mobile device. For a native device preview use:
+```bash
+ionic serve --lab
+```
+
+## What I Learned
+
+- Building a multi-page Ionic/Angular mobile application
+- Consuming a live external REST API with Angular's `HttpClient`
+- Persisting user data locally with Ionic Storage
+- Implementing tab-based navigation in Ionic
+- Managing state across pages (moving movies between Watchlist and Watched List)
+- Simulating authentication with local storage
