@@ -1,1 +1,58 @@
 
+# SimpleEmployeeAPI
+
+A simple in-memory CRUD REST API built with ASP.NET Core — my first .NET Web API practice exercise.
+
+## What It Does
+
+Manages a list of employees entirely in memory (no database). Supports full Create, Read, Update, and Delete operations via HTTP endpoints, testable through a browser or Postman.
+
+## Tech Stack
+
+- ASP.NET Core Web API (.NET)
+- C#
+- In-memory List (no database)
+
+## Endpoints
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/api/employees` | Retrieve all employees |
+| GET | `/api/employees/{id}` | Retrieve a single employee by ID |
+| POST | `/api/employees` | Create a new employee |
+| PUT | `/api/employees/{id}` | Update an existing employee |
+| DELETE | `/api/employees/{id}` | Delete an employee |
+
+## How to Run
+
+**Prerequisites:** .NET SDK installed
+
+```bash
+# Clone the repo and navigate to this folder
+cd SimpleEmployeeAPI
+
+# Run the API
+dotnet run
+```
+
+Then open your browser or Postman and hit:
+```
+https://localhost:5001/api/employees
+```
+
+## Example POST Body
+
+```json
+{
+  "name": "John",
+  "position": "Manager"
+}
+```
+
+## What I Learned
+
+- How to scaffold a .NET Web API project from the command line
+- Defining models and controllers in C#
+- Implementing REST HTTP verbs (GET, POST, PUT, DELETE)
+- Returning correct HTTP status codes (200, 201, 204, 404)
+- Testing endpoints with Postman
