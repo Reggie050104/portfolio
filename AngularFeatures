@@ -1,1 +1,71 @@
 
+# Angular Features — Practice Project
+
+A hands-on Angular practice project covering the core data binding features of the framework. Built during INF 354 Practical 4 at the University of Pretoria.
+
+## What It Covers
+
+| Feature | What Was Practiced |
+|---------|-------------------|
+| Interpolation binding `{{ }}` | Displaying component variables (string, number) and object properties in the template |
+| Property binding `[ ]` | Dynamically binding an image `src` to a variable from the component |
+| Event binding `( )` | Triggering a TypeScript function on button click |
+| Structural directive `*ngIf` | Conditionally rendering output based on a computed value |
+| Two-way binding `[(ngModel)]` | Synchronising an input field with a component property in real time |
+| Pipes | Formatting output — `uppercase`, `date:'fullDate'`, `currency:'ZAR'` |
+
+## Tech Stack
+
+- Angular (standalone components)
+- TypeScript
+- HTML / CSS
+
+## How to Run
+
+**Prerequisites:** Node.js, Angular CLI (`npm install -g @angular/cli`)
+
+```bash
+cd AFeatures
+npm install
+ng serve --open
+```
+
+The app opens at `http://localhost:4200`
+
+## Key Concepts Demonstrated
+
+**Interpolation** — renders component data directly in the HTML:
+```html
+<p>Module Name: {{ subjectCode }}</p>
+<p>Brand: {{ car.carBrand }}</p>
+```
+
+**Property binding** — binds a component value to an HTML attribute:
+```html
+<img [src]="car.CarImage" alt="car">
+```
+
+**Event binding** — calls a component method on user interaction:
+```html
+<button (click)="Calculatediscount(0.5)">Calculate Discount</button>
+```
+
+**Two-way binding** — keeps the view and component in sync:
+```html
+<input type="text" [(ngModel)]="car.carBrand">
+```
+
+**Pipes** — format output without changing the underlying data:
+```html
+<p>{{ car.carBrand | uppercase }}</p>
+<p>{{ car.productionYear | date:'fullDate' }}</p>
+<p>{{ car.carPrice | currency:'ZAR' }}</p>
+```
+
+## What I Learned
+
+- How Angular's one-way and two-way data binding mechanisms work
+- The difference between interpolation, property binding, and event binding
+- How to use `*ngIf` for conditional rendering
+- How pipes format data in the template without mutating the original value
+- Why `FormsModule` must be imported to use `ngModel`
