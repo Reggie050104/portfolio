@@ -1,1 +1,90 @@
 
+# FilmLog — Full-Stack (v2)
+
+An extended, production-ready version of FilmLog featuring secure JWT authentication, a .NET Core backend that proxies the OMDb movie API, full relational database persistence, and a statistics dashboard. Built for INF 354 Assignment 3 at the University of Pretoria.
+
+## What It Does
+
+- **Secure authentication** — Register and login with JWT Bearer Token; passwords hashed with BCrypt
+- **Movie search** — Frontend calls the backend, which proxies requests to OMDb API (API key protected server-side)
+- **Watchlist & Watched List** — All user data stored in a relational database (not local storage)
+- **Statistics Dashboard** — Pie chart of top genres, a custom bar chart, and a summary table based on the user's watched movies
+- **Unit Tests** — Backend tests covering successful (HTTP 200) and unsuccessful (HTTP 404) requests
+
+## Tech Stack
+
+**Backend:**
+- ASP.NET Core Web API (.NET 8)
+- Entity Framework Core (Code-First, SQL Server)
+- JWT Bearer Token authentication
+- BCrypt.Net password hashing
+- OMDb API integration (`https://www.omdbapi.com`)
+- xUnit + Moq
+
+**Frontend:**
+- Ionic / Angular
+- Angular `HttpClient` with JWT interceptor
+- Chart.js / ng2-charts (statistics dashboard)
+- TypeScript, SCSS
+
+## Architecture
+
+```
+Backend (ASP.NET Core)
+├── /api/auth/register      POST — register new user
+├── /api/auth/login         POST — login, returns JWT token
+├── /api/movies/search      GET  — proxy to OMDb API
+├── /api/watchlist          GET, POST, DELETE — user's watchlist (protected)
+└── /api/watched            GET, POST, PUT, DELETE, POST/reset — watched list (protected)
+
+Frontend (Ionic/Angular)
+├── Login / Register        JWT stored in Local Storage
+├── Search                  Calls backend /api/movies/search
+├── Watchlist               HTTP calls to protected backend endpoints
+├── Watched                 HTTP calls; times-watched counter; reset button
+└── Statistics Dashboard    Pie chart (top genres), bar chart, summary table
+```
+
+## Database Schema
+
+| Table | Key Fields |
+|-------|------------|
+| Users | Id, Email, PasswordHash, CreatedAt |
+| WatchlistItems | Id, UserId (FK), Title, Year, Poster, Actors, Genre |
+| WatchedItems | Id, UserId (FK), Title, Year, Poster, Actors, Genre, TimesWatched |
+
+## How to Run
+
+### Backend
+
+**Prerequisites:** Visual Studio 2022, .NET 8 SDK, SQL Server
+
+1. Open the backend solution in Visual Studio 2022
+2. Add your OMDb API key to `appsettings.json`:
+   ```json
+   "OmdbApiKey": "your_api_key_here"
+   ```
+3. Run migrations:
+   ```
+   Add-Migration InitialCreate
+   Update-Database
+   ```
+4. Press **F5** to start the API
+
+### Frontend
+
+```bash
+cd filmlog-frontend
+npm install
+ionic serve
+```
+
+## What I Learned
+
+- Implementing JWT Bearer Token authentication end-to-end
+- Hashing passwords securely with BCrypt
+- Acting as a backend proxy to protect third-party API keys
+- Replacing local storage with a relational database for multi-device data persistence
+- Building a statistics dashboard with pie and bar charts from real user data
+- Writing HTTP interceptors in Angular to attach JWT tokens to every protected request
+- Unit testing protected endpoints with xUnit and Moq
