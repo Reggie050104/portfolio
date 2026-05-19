@@ -1,1 +1,77 @@
 
+# CampusBuzz
+
+A full-stack web application for managing and promoting campus events, built for the INF 354 Assignment 1 at the University of Pretoria.
+
+## Use Case
+
+University students often miss important campus events — workshops, music festivals, cultural celebrations, and sporting events — because they rely on scattered channels like WhatsApp groups and posters. CampusBuzz is a proof-of-concept platform that centralises event management with a clean web interface.
+
+## What It Does
+
+- Displays a listing of all upcoming campus events (seeded from the database)
+- Allows administrators to **add**, **edit**, and **delete** events
+- Navigates between pages using Angular routing (no page reloads)
+- Persists all changes to a SQL Server database via a .NET 8 REST API
+- Includes unit tests for the API backend
+
+## Tech Stack
+
+**Backend:**
+- ASP.NET Core Web API (.NET 8)
+- Entity Framework Core (Code-First, SQL Server)
+- xUnit (unit testing)
+
+**Frontend:**
+- Angular (standalone components)
+- Angular Routing
+- TypeScript, HTML, CSS
+
+## Pages
+
+| Page | Description |
+|------|-------------|
+| Event Listing | Landing page — shows all events as cards with Edit and Delete buttons |
+| Add Event | Form to create a new event; Submit disabled until all fields are filled |
+| Edit Event | Pre-populated form to update an existing event's title, location, and price |
+
+## How to Run
+
+### API (Backend)
+
+**Prerequisites:** Visual Studio 2022, .NET 8 SDK, SQL Server LocalDB
+
+1. Open the API project in Visual Studio 2022
+2. Restore NuGet packages
+3. Run migrations in Package Manager Console:
+   ```
+   Add-Migration InitialCreate
+   Update-Database
+   ```
+4. Press **F5** to start the API (Swagger available at `/swagger`)
+
+### Angular App (Frontend)
+
+**Prerequisites:** Node.js, Angular CLI
+
+```bash
+cd campusbuzz-angular
+npm install
+ng serve --open
+```
+
+The app opens at `http://localhost:4200`
+
+## Unit Tests (API)
+
+The backend includes xUnit tests verifying:
+- Retrieve all events — returns HTTP 200 with non-null result
+- Retrieve an event by ID — returns HTTP 200 with non-null result
+
+## What I Learned
+
+- Building a full-stack application connecting Angular to a .NET API
+- Angular routing and navigation between pages
+- Reactive forms with disabled submit until all fields are valid
+- Seed data configuration in `AppDbContext.OnModelCreating`
+- Calling a REST API from Angular using `HttpClient` and services
